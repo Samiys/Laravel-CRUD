@@ -12,3 +12,9 @@
 */
 
 Route::get('/', 'CreatesController@home'); //CreatesController is controller name
+
+Route::get('/create', function (){
+    return view('create');
+});
+
+Route::post('/insert', 'CreatesController@add');

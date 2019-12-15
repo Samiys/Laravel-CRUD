@@ -2,7 +2,10 @@
 
 <div class="container">
 <div class="row">
-<legend>LaravelCRUDApplication</legend>
+<legend>Laravel CRUD Application</legend>
+    @if(session('info'))
+        <div class="alet alert-success">{{session('info')}}</div>
+        @endif
  <table class="table table-hover">
             <thead>
             <tr>

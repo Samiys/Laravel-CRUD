@@ -15,4 +15,18 @@ class CreatesController extends Controller
 
         return view('home', ['articles'=> $articles]);
     }
+
+    public function add(Request $request) { //Request $request for validation
+
+         $this->validate($request, [
+              'title' => 'required',
+              'description' => 'required'
+         ]);
+
+        $articles = new Article;
+        $articles->title = $request->input('title');
+        $articles->description = $request->input('description');
+        $articles->save();
+        return redirect('/')->with('info','Article Saved Successfully!');
+    }
 }
