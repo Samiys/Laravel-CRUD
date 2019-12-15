@@ -23,10 +23,62 @@ class CreatesController extends Controller
               'description' => 'required'
          ]);
 
-        $articles = new Article;
-        $articles->title = $request->input('title');
-        $articles->description = $request->input('description');
-        $articles->save();
-        return redirect('/')->with('info','Article Saved Successfully!');
+        $input = $request->all();
+        Article::create($input);
+
+//        $articles = new Article;
+//        $articles->title = $request->input('title');
+//        $articles->description = $request->input('description');
+//        $articles->save();
+        //Session::flash('info', 'You successfully added Article!');
+
+        return redirect('/')->with('info','You successfully added Article!');
     }
+
+    public function update($id) {
+
+        $articles = Article::find($id);
+        return view('update', ['articles'=> $articles]);
+    }
+
+    public function edit($id, Request $request) {
+
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+//        $data = array(
+//            'title' => $request->input('title'),
+//            'description' => $request->input('description')
+//        );
+//        Article::where('id', $id)->update($data);
+//        return redirect('/')->with('info','You successfully updated Article!');
+
+        $articles = Article::findOrFail($id);
+
+        $input = $request->all();
+        $articles->fill($input)->save();
+
+        return redirect('/')->with('info','You successfully updated Article!');
+
+    }
+
+    public function read($id) {
+
+        $articles = Article::find($id);
+        return view('read ', ['articles'=> $articles]);
+    }
+
+    public function delete($id) {
+
+        $articles = Article::find($id);
+
+        $articles->delete();
+
+        return redirect('/')->with('info','You successfully deleted Article!');
+        //return view('read ', ['articles'=> $articles]);
+    }
+
+
 }
