@@ -2,7 +2,16 @@
 
 <div class="container">
 <div class="row">
-<legend>LaravelCRUDApplication</legend>
+<legend>Laravel CRUD Application</legend>
+    <div>
+            @if(session('info'))
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <h4 class="alert-heading">Success!</h4>
+                    <p class="mb-0">{{session('info')}}</p>
+                </div>
+            @endif
+    </div>
  <table class="table table-hover">
             <thead>
             <tr>
@@ -14,18 +23,15 @@
             </thead>
             <tbody>
              @if(count($articles) > 0)
-
                  @foreach($articles->all() as $article)
-
-
             <tr class="table-light">
                 <th scope="row">{{ $article->id }}</th>
                 <td>{{ $article->title }}</td>
                 <td>{{ $article->description }}</td>
                 <td>
-                    <a href="{{ url('') }}" class="badge badge-primary">Read</a> |
-                    <a href="{{ url('') }}" class="badge badge-success">Update</a> |
-                    <a href="{{ url('') }}" class="badge badge-danger">Delete</a>
+                    <a href="{{ url("/read/{$article->id}") }}" class="badge badge-primary">Read</a> |
+                    <a href='{{ url("/update/{$article->id}") }}' class="badge badge-success">Update</a> |
+                    <a href="{{ url("/delete/{$article->id}") }}" class="badge badge-danger">Delete</a>
 
                 </td>
             </tr>
